@@ -1,7 +1,8 @@
 name: Challenge 3 - Node.js CI
 
-on: [push]
-  paths:
+on:
+  push:
+    paths:
     - 'apis/userprofile/**'
     
 jobs:
