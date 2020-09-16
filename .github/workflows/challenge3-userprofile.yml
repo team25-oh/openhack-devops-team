@@ -30,9 +30,9 @@ jobs:
       uses: JasonEtco/create-an-issue@v2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Repository Dispatch
-      uses: peter-evans/repository-dispatch@v1
-      with:
-        token: ${{ secrets.REPOSITORY_DISPATCH }}
-        repository: team25-oh/openhack-devops-team
-        event-type: triggerUserProfileCD
+    #- name: Repository Dispatch
+    #  uses: peter-evans/repository-dispatch@v1
+    #  with:
+    #    token: ${{ secrets.REPOSITORY_DISPATCH }}
+    #    repository: team25-oh/openhack-devops-team
+    #    event-type: triggerUserProfileCD
