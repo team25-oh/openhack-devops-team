@@ -41,6 +41,6 @@ jobs:
  
             images: '${{ secrets.REGISTRY_LOGIN_SERVER }}/devopsoh/api-userprofile:${{ github.run_id }}'
 
-      - name: Azure logout
+        - name: Azure logout
           run: |
             az logout
