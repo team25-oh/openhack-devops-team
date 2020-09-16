@@ -35,4 +35,4 @@ jobs:
       with:
         token: ${{ secrets.REPOSITORY_DISPATCH }}
         repository: team25-oh/openhack-devops-team
-	event-type: triggerCD
+        event-type: triggerUserProfileCD
