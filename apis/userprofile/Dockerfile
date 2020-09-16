@@ -1,8 +1,8 @@
 FROM node:8-alpine
 
-COPY . /app
+COPY . /build
 
-WORKDIR  /app
+WORKDIR  /build
 
 EXPOSE 8080
 
