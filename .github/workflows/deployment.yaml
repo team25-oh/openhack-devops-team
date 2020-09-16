@@ -1,0 +1,39 @@
+name: Challenge 3 - Node.js CI
+
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - 'apis/userprofile/**'
+    name: Container_Workflow
+    
+jobs:
+    build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # checkout the repo
+        - name: 'Checkout GitHub Action'
+          uses: actions/checkout@master
+          
+        - name: 'Login via Azure CLI'
+          uses: azure/login@v1
+          with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+        - name: 'Build and push image'
+          uses: azure/docker-login@v1
+          with:
+            login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+            username: ${{ secrets.REGISTRY_USERNAME }}
+            password: ${{ secrets.REGISTRY_PASSWORD }}
+        - run: |
+            docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/devopsoh/api-userprofile:${{ github.run_id }}
+            docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/devopsoh/api-userprofile:${{ github.run_id }}
+
+        - name: 'deploy to aure webapp for container'
+          uses: azure/webapps-container-deploy@v1
+          with:
+          app-name: 'openhack0ti3h6k1userprofile'
+          images: '${{ secrets.REGISTRY_LOGIN_SERVER }}/devopsoh/api-userprofile:${{ github.run_id }}'
