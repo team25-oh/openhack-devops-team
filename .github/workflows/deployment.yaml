@@ -35,7 +35,7 @@ jobs:
 
         - name: 'deploy to aure webapp for container'
           uses: azure/webapps-deploy@v2
-	  with:
+          with:
             app-name: 'openhack0ti3h6k1userprofile'
             publish-profile: ${{ secrets.PUBLISH_PROFILE }}
  
@@ -44,4 +44,3 @@ jobs:
       - name: Azure logout
           run: |
             az logout
-	    
