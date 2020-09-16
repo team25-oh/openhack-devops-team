@@ -42,7 +42,7 @@ jobs:
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
         - run: |
-            docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/devopsoh/api-userprofile:${{ github.run_id }} -f apis/userprofile/Dockerfile
+            docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/devopsoh/api-userprofile:${{ github.run_id }} -f apis/userprofile/Dockerfile .
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/devopsoh/api-userprofile:${{ github.run_id }}
 
         - name: 'deploy to aure webapp for container'
