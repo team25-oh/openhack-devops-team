@@ -25,3 +25,6 @@ jobs:
     - run: npm --prefix apis/userprofile test
       env:
         CI: true
+    - uses: JasonEtco/create-an-issue@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
