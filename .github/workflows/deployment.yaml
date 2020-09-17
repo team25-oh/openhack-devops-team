@@ -71,7 +71,12 @@ jobs:
            
         - name: wait for prod slot to come up
           run:  |
-            SH/part1.sh  -i https://openhack0ti3h6k1userprofile.azurewebsites.net/api/healthcheck/user  
+            SH/part2.sh  -i https://openhack0ti3h6k1userprofile.azurewebsites.net/api/healthcheck/user  
+         
+        - name: if swap failed revert
+          if: ${{ failure() }}
+          run:  |
+             az webapp deployment slot swap -g openhack0ti3h6k1rg -n openhack0ti3h6k1userprofile --slot production --target-slot staging
              
         - name: delete the deployment slot
           run:  |
