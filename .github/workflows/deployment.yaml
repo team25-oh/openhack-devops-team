@@ -3,7 +3,7 @@ name: Challenge 3 - Node.js CI
 on:
   push:
     branches:
-    - master
+    - CH5
     paths:
     - 'apis/userprofile/**'
 
