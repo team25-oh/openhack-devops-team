@@ -11,3 +11,4 @@ test
 
 trigger staging deployment
 test
+test trigger staging 3
