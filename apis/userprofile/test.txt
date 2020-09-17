@@ -18,3 +18,4 @@ test that deployment slot is created and that it comes up
 test that it fails correctly
 try it again
 fail
+fail test
