@@ -16,7 +16,7 @@ module.exports = {
         200: function (req, res, callback) {
             res.json({
                 message: 'healthcheck',
-                status:  process.env.DEPLOYMENT_ENVIRONMENT
+                status:  'new_version'
             });
             callback;
         },
