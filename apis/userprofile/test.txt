@@ -13,4 +13,5 @@ trigger staging deployment
 test
 test trigger staging 3
 test trigger staging - attempt 3
-test again
+test again 4
+test that deployment slot is created and that it comes up

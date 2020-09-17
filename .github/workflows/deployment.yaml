@@ -44,8 +44,7 @@ jobs:
         - run: |
             docker build -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/devopsoh/api-userprofile:${{ github.run_id }} -f apis/userprofile/Dockerfile apis/userprofile
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/devopsoh/api-userprofile:${{ github.run_id }}
-
-           
+            
         - name : create deployment slot
           run:  |
             az webapp deployment slot create --name openhack0ti3h6k1userprofile --resource-group openhack0ti3h6k1rg --slot staging
@@ -60,13 +59,29 @@ jobs:
             app-name: 'openhack0ti3h6k1userprofile'
             publish-profile: ${{ secrets.PUBLISH_PROFILE }}
             slot: staging 
-
             images: '${{ secrets.REGISTRY_LOGIN_SERVER }}/devopsoh/api-userprofile:${{ github.run_id }}'
-                        
+            
+        - name: wait for stage slot to come up
+          run:  |
+            SH/part1.sh  -i https://openhack0ti3h6k1userprofile-staging.azurewebsites.net/api/healthcheck/user
+                          
         - name: Deployment swap
           run:  |
            az webapp deployment slot swap -g openhack0ti3h6k1rg -n openhack0ti3h6k1userprofile --slot staging --target-slot production
            
+        - name: wait for prod slot to come up
+          run:  |
+            SH/part2.sh  -i https://openhack0ti3h6k1userprofile.azurewebsites.net/api/healthcheck/user  
+         
+        - name: if swap failed revert
+          if: ${{ failure() }}
+          run:  |
+             az webapp deployment slot swap -g openhack0ti3h6k1rg -n openhack0ti3h6k1userprofile --slot production --target-slot staging
+             
+        - name: delete the deployment slot
+          run:  |
+            az webapp deployment slot delete --name openhack0ti3h6k1userprofile --resource-group openhack0ti3h6k1rg --slot staging
+                    
         - name: Azure logout
           run: |
             az logout
