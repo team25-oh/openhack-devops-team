@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - master
+    - CH5
     paths:
     - 'apis/userprofile/**'
 
