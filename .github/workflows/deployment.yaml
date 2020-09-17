@@ -4,8 +4,11 @@ on:
   push:
     branches:
     - CH5
+    - master
+      
     paths:
     - 'apis/userprofile/**'
+    - '.github/*'
 
 #name: Container_Workflow
     
