@@ -76,7 +76,7 @@ jobs:
         - name: if swap failed revert
           if: ${{ failure() }}
           run:  |
-             az webapp deployment slot swap -g openhack0ti3h6k1rg -n openhack0ti3h6k1userprofile --slot production --target-slot staging
+           az webapp deployment slot swap -g openhack0ti3h6k1rg -n openhack0ti3h6k1userprofile --slot staging --target-slot production
              
         - name: delete the deployment slot
           run:  |
