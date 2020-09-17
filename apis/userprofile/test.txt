@@ -8,3 +8,5 @@ removed trigger
 trigger deploy
 trigger again 8
 test
+
+trigger staging deployment
