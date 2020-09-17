@@ -45,23 +45,28 @@ jobs:
             docker build -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/devopsoh/api-userprofile:${{ github.run_id }} -f apis/userprofile/Dockerfile apis/userprofile
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/devopsoh/api-userprofile:${{ github.run_id }}
 
+           
+        - name : create deployment slot
+          run:  |
+            az webapp deployment slot create --name openhack0ti3h6k1userprofile --resource-group openhack0ti3h6k1rg --slot staging
+            
+        - name : start  stage slot
+          run:  |
+            az webapp start --name openhack0ti3h6k1userprofile --resource-group openhack0ti3h6k1rg --slot staging            
+
         - name: 'deploy to aure webapp for container - staging'
           uses: azure/webapps-deploy@v2
           with:
             app-name: 'openhack0ti3h6k1userprofile'
-            publish-profile: ${{ secrets.STAGE_PUBLISH_PROFILE }}
-
-            images: '${{ secrets.REGISTRY_LOGIN_SERVER }}/devopsoh/api-userprofile:${{ github.run_id }}'
-
-
-        - name: 'deploy to aure webapp for container - production'
-          uses: azure/webapps-deploy@v2
-          with:
-            app-name: 'openhack0ti3h6k1userprofile'
             publish-profile: ${{ secrets.PUBLISH_PROFILE }}
+            slot: staging 
 
             images: '${{ secrets.REGISTRY_LOGIN_SERVER }}/devopsoh/api-userprofile:${{ github.run_id }}'
-          
+                        
+        - name: Deployment swap
+          run:  |
+           az webapp deployment slot swap -g openhack0ti3h6k1rg -n openhack0ti3h6k1userprofile --slot staging --target-slot production
+           
         - name: Azure logout
           run: |
             az logout
