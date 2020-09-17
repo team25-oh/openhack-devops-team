@@ -25,6 +25,9 @@ jobs:
         - run: npm --prefix apis/userprofile install
         - run: npm --prefix apis/userprofile run build --if-present
                 
+        - name: test stopping
+          run: echo "::stop-commands::pause-logging"
+          
       #steps:
       # checkout the repo
         - name: 'Checkout GitHub Action'
