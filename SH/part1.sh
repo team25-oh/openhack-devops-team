@@ -3,7 +3,7 @@
 declare -i duration=1
 declare hasUrl=""
 declare endpoint
-declare count=60
+declare count=250
 
 usage() {
     cat <<END
