@@ -3,7 +3,7 @@
 declare -i duration=1
 declare hasUrl=""
 declare endpoint
-declare count=60
+declare count=250
 
 usage() {
     cat <<END
@@ -53,7 +53,7 @@ healthcheck() {
     echo $status
 }
 
-exit 1
+#exit 1
 
 # Check that the URL is up
 while [[ true ]]; do
