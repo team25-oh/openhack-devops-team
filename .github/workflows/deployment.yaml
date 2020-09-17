@@ -27,10 +27,7 @@ jobs:
             node-version: ${{ matrix.node-version }}
         - run: npm --prefix apis/userprofile install
         - run: npm --prefix apis/userprofile run build --if-present
-                
-        - name: test stopping
-          run: echo "::stop-commands::pause-logging"
-          
+                         
       #steps:
       # checkout the repo
         - name: 'Checkout GitHub Action'
@@ -71,6 +68,10 @@ jobs:
           run:  |
             SH/part1.sh  -i https://openhack0ti3h6k1userprofile-staging.azurewebsites.net/api/healthcheck/user
                           
+        - name: if stage fails
+          if: ${{ failure() }}
+          run: echo "stopping"
+          
         - name: Deployment swap
           run:  |
            az webapp deployment slot swap -g openhack0ti3h6k1rg -n openhack0ti3h6k1userprofile --slot staging --target-slot production
